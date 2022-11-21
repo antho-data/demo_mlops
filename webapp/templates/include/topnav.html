@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+
+        <!-- App title -->
+        <div class="mx-auto order-0">
+            <div class="navbar-brand mx-auto">{{"Object detection with YOLO v7" | append_instance}}</div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item {{'active' if active_page == '' }}">
+                    <a class="nav-link" href="/">Home</a>
+                </li>         
+                    
+                <li class="nav-item {{'active' if active_page == 'login' }}">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>                  
+   
+                <li class="nav-item {{'active' if active_page == 'detection' }}">
+                    <a class="nav-link" href="/detection">Detection</a>
+                </li>
+
+                {% if "" | append_instance_shortname()=="BO" %} 
+
+                <li class="nav-item {{'active' if active_page == 'usage_logs' }}">
+                    <a class="nav-link" href="/usage_logs">Usage logs</a>
+                </li>
+
+                <li class="nav-item {{'active' if active_page == 'operational_logs' }}">
+                    <a class="nav-link" href="/operational_logs">Operational Logs</a>
+                </li>
+
+                <li class="nav-item {{'active' if active_page == 'reset_database' }}">
+                    <a class="nav-link" href="/reset_databases">Reset Databases {{test}}</a>
+                </li>               
+                
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/page/about">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

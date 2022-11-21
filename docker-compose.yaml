@@ -1,0 +1,112 @@
+version: "3"
+
+services:
+
+   #--------------------------------------------------------
+   # 1) Databases
+
+  db_users:
+    restart: always
+    image: postgres:11.6-alpine
+    container_name: obj_detect_db_users
+    ports:
+      - "5440:5432"
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "od_users"
+      POSTGRES_PORT: 5432
+    #volumes:
+     # - ./.docker-data/pg:/var/lib/postgresql/data
+    networks:
+     - obj_detect_network
+
+  db_logs:
+    restart: always
+    image: postgres:11.6-alpine
+    container_name: obj_detect_db_logs
+    ports:
+      - "5441:5432"
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "od_logs"
+      POSTGRES_PORT: 5432     
+    #volumes:
+     # - ./.docker-data/pg:/var/lib/postgresql/data
+    networks:
+     - obj_detect_network     
+
+  #--------------------------------------------------------
+  # 2) REST APIs (services)
+
+  od_api_fo:
+    restart: always
+    image: obj_detect_api_image:latest
+    environment:
+      - od_api_instance=FO
+      # See https://www.datanovia.com/en/lessons/docker-compose-wait-for-container-using-wait-tool/      
+      - WAIT_HOSTS=obj_detect_db_users:5432, obj_detect_db_logs:5432
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30      
+    container_name: obj_detect_api_fo
+    # command: gunicorn main:app --bind 0.0.0.0:8000 --port 8000 -w 2 -k uvicorn.workers.UvicornWorker
+    command: sh -c "/wait && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8010:8000"
+    networks:
+      - obj_detect_network
+
+  od_api_bo:
+    restart: always
+    image: obj_detect_api_image:latest
+    environment:
+      - od_api_instance=BO    
+      # See https://www.datanovia.com/en/lessons/docker-compose-wait-for-container-using-wait-tool/
+      - WAIT_HOSTS=obj_detect_db_users:5432, obj_detect_db_logs:5432
+      - WAIT_HOSTS_TIMEOUT=60
+      - WAIT_SLEEP_INTERVAL=2
+      - WAIT_HOST_CONNECT_TIMEOUT=3   
+    container_name: obj_detect_api_bo
+    # command: gunicorn main:app --bind 0.0.0.0:8001 --port 8001 -w 2 -k uvicorn.workers.UvicornWorker
+    command: sh -c "/wait && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8011:8000"
+    networks:
+      - obj_detect_network
+
+  #--------------------------------------------------------
+  # 3) Web apps (User Interface)
+
+  od_webapp_fo:
+    restart: always
+    image: obj_detect_webapp_image:latest
+    environment:
+      - od_webapp_instance=FO
+      - api_root_url=http://obj_detect_api_fo:8000
+    container_name: obj_detect_webapp_fo
+    # command: gunicorn app.main:app --bind 0.0.0.0:8010 --port 8010 -w 2 -k uvicorn.workers.UvicornWorker
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8020:8000"
+    networks:
+      - obj_detect_network
+
+  od_webapp_bo:
+    restart: always
+    image: obj_detect_webapp_image:latest
+    environment:
+      - od_webapp_instance=BO
+      - api_root_url=http://obj_detect_api_bo:8000
+    container_name: obj_detect_webapp_bo
+    #command: gunicorn app.main:app --bind 0.0.0.0:8011 --port 8011 -w 2 -k uvicorn.workers.UvicornWorker
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8021:8000"
+    networks:
+      - obj_detect_network
+
+
+networks:
+  obj_detect_network:

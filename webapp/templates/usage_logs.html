@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% set active_page = "usage_logs" %}
+
+{% block title %}Usage logs{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+
+{% endblock %}
+
+{% block page_content %}
+<h1 class="cap">Usage logs</h1>
+
+<!-- TODO : Externalize styles in CSS !-->
+
+{% if message %}
+<p style="color:green;">{{ message }}</p>
+{% endif %}
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+
+<table class="colored-table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Timestamp</th>
+            <th>User Id</th>
+            <th>API route</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for logline in logs %}
+        <tr>
+            <td>{{ logline['id'] }}</td>
+            <td>{{ logline['time_stamp'] }}</td>
+            <td>{{ logline['userid'] }}</td>
+            <td>{{ logline['api_route'] }}</td>            
+        </tr>
+        {% endfor %}
+    </tbody>
+
+ </table>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

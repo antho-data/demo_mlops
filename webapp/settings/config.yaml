@@ -1,0 +1,9 @@
+webapp_version: 0.9
+
+# Security should ideally be stored in a secured store
+# same for database user and password
+
+security:
+  secret: "c3c6c4860fca1b67f0274a8736db3b47e808df3947dce489c783ec5430ae388f"
+  algorithm: HS256
+  acces_token_expire_minutes: 15

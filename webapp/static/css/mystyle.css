@@ -1,0 +1,137 @@
+body {
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px; 
+    box-sizing: border-box;
+    color:rgba(36, 35, 35, 0.724);
+}
+
+.wrapper{
+    max-width: 960px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    padding-top:50px;
+}
+
+.responsive{
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Classes for messages and errors */
+
+p.error { color:red }
+p.message { color:green }
+
+h1 {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+  }
+  
+/* Classes for button */
+
+.form_button {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* input[type="file"] {
+  display: none;
+} */
+
+.form_button:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.form_button:hover {
+  background-color: #2c974b;
+}
+
+.form_button:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.form_button:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.form_button:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+/* Classes for table */
+
+.colored-table thead tr {
+    background-color: #94d3a2;
+    color: #5c5353;
+    text-align: left;
+}
+
+.colored-table th,
+.colored-table td {
+    padding: 12px 15px;
+}
+
+.colored-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.colored-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.colored-table tbody tr:last-of-type {
+    border-bottom: 2px solid #94d3a2;
+}
+
+.colored-table tbody tr.active-row {
+    font-weight: bold;
+    color: #2ea44f;
+}
+
+
+/* Loging form */
+
+label.login {
+    display: inline-block; 
+    width: 120px; 
+    text-align: right;
+}

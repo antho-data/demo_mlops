@@ -1,0 +1,13 @@
+# Image source
+FROM debian:latest
+
+WORKDIR /app
+COPY requirements.txt /app/
+
+# Install Python and PIP
+RUN apt-get update && apt-get install python3-pip -y
+RUN apt-get install -y python3-opencv
+
+# upgrade pip and install all requirements
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt

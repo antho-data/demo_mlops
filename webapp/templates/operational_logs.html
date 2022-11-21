@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% set active_page = "operational_logs" %}
+
+{% block title %}Operational logs{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+
+{% endblock %}
+
+{% block page_content %}
+<h1 class="cap">Operational logs</h1>
+
+<!-- TODO : Externalize styles in CSS !-->
+
+{% if message %}
+<p style="color:green;">{{ message }}</p>
+{% endif %}
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+
+<table class="colored-table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Timestamp</th>
+            <th>Severity</th>
+            <th>Message</th>       
+            <th>Context</th>       
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for logline in logs %}
+        <tr>
+            <td>{{ logline['id'] }}</td>
+            <td>{{ logline['time_stamp'] }}</td>
+            <td>{{ logline['severity'] }}</td>            
+            <td>{{ logline['message'] }}</td>
+            <td>{{ logline['context'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+ </table>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

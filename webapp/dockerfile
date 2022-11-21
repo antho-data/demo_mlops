@@ -1,0 +1,19 @@
+# Image source
+FROM debian:latest
+
+# Set work directory
+WORKDIR /app
+
+# Add application
+COPY . /app
+
+# Install Python and PIP
+RUN apt-get update && apt-get install python3-pip -y
+
+# upgrade pip and install all requirements
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Startup Web App
+# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8010",  "--reload"]
+#  Sepecified in docker-compose.yaml port depends on instanace (fo:8010/bo:8011)

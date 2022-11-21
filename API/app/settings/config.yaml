@@ -1,0 +1,43 @@
+api_version: 0.93
+
+# security and login section should ideally be stored in a secured store
+# same for database user and password
+
+security:
+  secret: "c3c6c4860fca1b67f0274a8736db3b47e808df3947dce489c783ec5430ae388f"
+  algorithm: HS256
+  acces_token_expire_minutes: 15
+
+database:
+  production:
+    users:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: password
+        POSTGRES_HOST: obj_detect_db_users
+        POSTGRES_DB: od_users
+        POSTGRES_PORT: 5432
+    logs:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: password
+        POSTGRES_HOST: obj_detect_db_logs
+        POSTGRES_DB: od_logs
+        POSTGRES_PORT: 5432      
+  test:
+    users:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: password
+        POSTGRES_HOST: localhost
+        POSTGRES_DB: od_users
+        POSTGRES_PORT: 5440
+    logs:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: password
+        POSTGRES_HOST: localhost
+        POSTGRES_DB: od_logs
+        POSTGRES_PORT: 5441         
+
+yolo:
+  weight_file: best_weights.pt
+  confidence_threshold: 0.3
+  iou_threshold: 0.3
+
